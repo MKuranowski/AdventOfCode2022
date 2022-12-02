@@ -1,5 +1,7 @@
 export function linesFromFile(path: string): string[] {
-    return Deno.readTextFileSync(path).split("\n");
+    const lines = Deno.readTextFileSync(path).split("\n");
+    if (lines.at(-1) === "") lines.pop();  // remove trailing newline
+    return lines;
 }
 
 export function splitOn<T>(seq: Iterable<T>, pred: (_thing: T) => boolean): T[][] {
@@ -17,4 +19,14 @@ export function splitOn<T>(seq: Iterable<T>, pred: (_thing: T) => boolean): T[][
 
     if (current.length > 0) afterSplit.push(current);
     return afterSplit;
+}
+
+/**
+ * Returns the Euclidian modulus of x.
+ *
+ * mod(13, 5) == 3 (== 13 % 5)
+ * mod(-2, 5) == 3 (but -2 % 5 == -2)
+ */
+export function mod(x: number, modulus: number): number {
+    return ((x % modulus) + modulus) % modulus;
 }
