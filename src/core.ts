@@ -1,6 +1,6 @@
 export function linesFromFile(path: string): string[] {
     const lines = Deno.readTextFileSync(path).split("\n");
-    if (lines.at(-1) === "") lines.pop();  // remove trailing newline
+    if (lines.at(-1) === "") lines.pop(); // remove trailing newline
     return lines;
 }
 
@@ -29,4 +29,23 @@ export function splitOn<T>(seq: Iterable<T>, pred: (_thing: T) => boolean): T[][
  */
 export function mod(x: number, modulus: number): number {
     return ((x % modulus) + modulus) % modulus;
+}
+
+/**
+ * Returns an intersection of all the provided sets
+ */
+export function setIntersection<T>(a: Set<T>, ...others: Set<T>[]): Set<T> {
+    const intersection: Set<T> = new Set();
+    for (const elem of a) {
+        let allHave = true;
+        for (const other of others) {
+            if (!other.has(elem)) {
+                allHave = false;
+                break;
+            }
+        }
+
+        if (allHave) intersection.add(elem);
+    }
+    return intersection;
 }
