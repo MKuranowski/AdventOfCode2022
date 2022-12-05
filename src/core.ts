@@ -49,3 +49,10 @@ export function setIntersection<T>(a: Set<T>, ...others: Set<T>[]): Set<T> {
     }
     return intersection;
 }
+
+/**
+ * Implementation of Python's enumerate.
+ */
+export function* enumerate<T>(it: Iterable<T>, start = 0): Iterable<[number, T]> {
+    for (const i of it) yield [start++, i];
+}
