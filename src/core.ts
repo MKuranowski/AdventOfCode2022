@@ -56,3 +56,14 @@ export function setIntersection<T>(a: Set<T>, ...others: Set<T>[]): Set<T> {
 export function* enumerate<T>(it: Iterable<T>, start = 0): Iterable<[number, T]> {
     for (const i of it) yield [start++, i];
 }
+
+/**
+ * Implementation pf Python's itertools.pairwise
+ */
+export function* pairwise<T>(it: Iterable<T>): Iterable<[T, T]> {
+    let prev: T | null = null;
+    for (const elem of it) {
+        if (prev !== null) yield [prev, elem];
+        prev = elem;
+    }
+}
