@@ -67,3 +67,14 @@ export function* pairwise<T>(it: Iterable<T>): Iterable<[T, T]> {
         prev = elem;
     }
 }
+
+export function gcd(a: number, b: number): number {
+    while (b !== 0) {
+        [a, b] = [b, a % b];
+    }
+    return a;
+}
+
+export function lcm(a: number, b: number): number {
+    return a * b / gcd(a, b);
+}
