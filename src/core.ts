@@ -175,3 +175,20 @@ export class MinHeap<T> {
         return popped;
     }
 }
+
+export function* zip<T, U = null>(
+    a: Iterable<T>,
+    b: Iterable<T>,
+    fillValue: U,
+): Generator<[T | U, T | U], void, void> {
+    const x = a[Symbol.iterator]();
+    const y = b[Symbol.iterator]();
+
+    while (true) {
+        const xElem = x.next();
+        const yElem = y.next();
+
+        if (xElem.done && yElem.done) break;
+        yield [xElem.done ? fillValue : xElem.value, yElem.done ? fillValue : yElem.value];
+    }
+}
