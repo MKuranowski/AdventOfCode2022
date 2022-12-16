@@ -192,3 +192,31 @@ export function* zip<T, U = null>(
         yield [xElem.done ? fillValue : xElem.value, yElem.done ? fillValue : yElem.value];
     }
 }
+
+export class Bisection {
+    static search<T>(x: readonly T[], lessThanTarget: (a: T) => boolean): number {
+        let l = 0;
+        let r = x.length;
+
+        while (l < r) {
+            const h = (l+r) >> 1;
+            if (lessThanTarget(x[h])) {
+                l = h + 1;
+            } else {
+                r = h;
+            }
+        }
+
+        return l;
+    }
+
+    static has<T>(haystack: readonly T[], needle: T): boolean {
+        return haystack.at(Bisection.search(haystack, (x) => x < needle)) === needle;
+    }
+
+    static insert<T>(haystack: T[], needle: T): void {
+        const idx = Bisection.search(haystack, x => x < needle);
+        if (haystack.at(idx) === needle) return;
+        haystack.splice(idx, 0, needle);
+    }
+}
