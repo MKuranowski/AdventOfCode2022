@@ -12,4 +12,4 @@ else
 fi
 
 echo "import { main } from \"./src/day$DAY.ts\"; main();" |
-    deno run --allow-read=input - "$FILENAME"
+    deno run '--v8-flags=--max-heap-size=8192' --allow-read=input - "$FILENAME"

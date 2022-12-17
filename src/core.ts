@@ -176,11 +176,11 @@ export class MinHeap<T> {
     }
 }
 
-export function* zip<T, U = null>(
+export function* zip<T, U, V = null>(
     a: Iterable<T>,
-    b: Iterable<T>,
-    fillValue: U,
-): Generator<[T | U, T | U], void, void> {
+    b: Iterable<U>,
+    fillValue: V,
+): Generator<[T | V, U | V], void, void> {
     const x = a[Symbol.iterator]();
     const y = b[Symbol.iterator]();
 
