@@ -10,3 +10,4 @@ Day-specific notes:
     That's why it's written in Rust, while a small part (graph "compression") is written in TS.
 
     Still, the solver for part 2 needs 6 seconds to run, at least on my modern PC.
+- Day 22 - very elegant solution for part B (/s), I'm assuming everyone gets a different net?
