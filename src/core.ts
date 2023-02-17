@@ -222,5 +222,5 @@ export class Bisection {
 }
 
 export function extractIntegers(x: string): number[] {
-    return (x.match(/[0-9]+/g) ?? []).map((m) => parseInt(m, 10));
+    return (x.match(/-?[0-9]+/g) ?? []).map((m) => parseInt(m, 10));
 }

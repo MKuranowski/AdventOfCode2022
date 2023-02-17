@@ -1,12 +1,14 @@
-import { dist, INPUT, Overlap, overlapAtY, overlapsUnion, TEST } from "./day15a.ts";
-
-const BOUND = TEST ? 20 : 4000000;
+import { dist, Overlap, overlapAtY, overlapsUnion, loadInput } from "./day15a.ts";
 
 export function main(): void {
-    for (let y = 0; y < BOUND; ++y) {
+    const isTest = Deno.args[0].match(/test/i) !== null;
+    const bound = isTest ? 20 : 4_000_000;
+    const input = loadInput();
+
+    for (let y = 0; y < bound; ++y) {
         let overlaps: Overlap[] = [];
 
-        INPUT.forEach(([sensor, beacon]) => {
+        input.forEach(([sensor, beacon]) => {
             const radius = dist(sensor, beacon);
             const overlap = overlapAtY(sensor, radius, y);
             if (overlap !== null) overlaps.push(overlap);
