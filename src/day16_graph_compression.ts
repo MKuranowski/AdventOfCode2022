@@ -1,5 +1,4 @@
 import { readAllSync } from "https://deno.land/std@0.168.0/streams/read_all.ts";
-import { MinHeap } from "./core.ts";
 
 type Valve = { flowRate: number; tunnels: number[] };
 type Valves = Map<number, Valve>;
@@ -50,65 +49,42 @@ function loadValves(): Valves {
     return valves;
 }
 
-function compressGraph(v: Valves): DenseValves {
-    const g: DenseValves = new Map();
+function compressGraph(sparseValves: Valves): DenseValves {
+    // Floyd-Warshall algorithm to find shortest paths between nodes
+    const n = sparseValves.size;
 
-    for (const [from, valve] of v) {
-        // Ignore pointless valves
-        if (valve.flowRate === 0 && from !== 0) continue;
-
-        const distances: Map<number, number> = new Map();
-
-        // undefined - not visited, NaN - already visited
-        const entries: Map<number, number> = new Map();
-
-        const q = new MinHeap<number>(
-            (a, b) => (distances.get(a) ?? Infinity) < (distances.get(b) ?? Infinity),
-            (to, newIndex) => entries.set(to, newIndex),
-        );
-
-        // Start by pushing the entry node
-        distances.set(from, 0);
-        q.push(from);
-
-        // Run Dijkstra to calculate path lengths between valves
-        while (q.length > 0) {
-            const popped = q.pop();
-            const altCost = distances.get(popped)! + 1;
-
-            // Add outgoing edges
-            for (const to of v.get(popped)!.tunnels) {
-                // See if altCost is better
-                if (altCost < (distances.get(to) ?? Infinity)) {
-                    distances.set(to, altCost);
-
-                    // See if `to` was already in the queue
-                    const existingIdx = entries.get(to);
-
-                    if (existingIdx === undefined) {
-                        // Was not in the queue
-                        q.push(to);
-                    } else if (isNaN(existingIdx)) {
-                        // Was already visited, but we have a cheaper way?
-                        throw "Dijkstra broke";
-                    } else {
-                        q.siftDown(existingIdx);
-                    }
-                }
-            }
-        }
-
-        // Remove pointless paths
-        for (const [to, { flowRate }] of v) {
-            if (flowRate === 0) distances.delete(to);
-        }
-        distances.delete(from);
-
-        // Remember them distances
-        g.set(from, { flowRate: valve.flowRate, to: distances });
+    // Initialize distances
+    const valves: DenseValves = new Map();
+    for (const [id, v] of sparseValves) {
+        valves.set(id, { flowRate: v.flowRate, to: new Map(v.tunnels.map((n) => [n, 1])) });
     }
 
-    return g;
+    const dist = (a: number, b: number): number => valves.get(a)!.to.get(b) ?? Infinity;
+    const setDist = (a: number, b: number, dist: number) => valves.get(a)!.to.set(b, dist);
+
+    // Relax edges
+    for (let k = 0; k < n; ++k) {
+        for (let i = 0; i < n; ++i) {
+            for (let j = 0; j < n; ++j) {
+                setDist(i, j, Math.min(dist(i, j), dist(i, k) + dist(k, j)));
+            }
+        }
+    }
+
+    // Remove valves without any flowRate
+    for (const [id, v] of valves) {
+        if (v.flowRate === 0 && id !== 0) {
+            // Completely remove valves without any flow, except for the starting node
+            valves.delete(id);
+        } else {
+            // Remove any neighbors that have no flow and disallow moving to the same node
+            for (const n of v.to.keys()) {
+                if (n === id || sparseValves.get(n)!.flowRate === 0) v.to.delete(n);
+            }
+        }
+    }
+
+    return valves;
 }
 
 // Read the sparse graph
