@@ -199,7 +199,7 @@ export class Bisection {
         let r = x.length;
 
         while (l < r) {
-            const h = (l+r) >> 1;
+            const h = (l + r) >> 1;
             if (lessThanTarget(x[h])) {
                 l = h + 1;
             } else {
@@ -215,12 +215,12 @@ export class Bisection {
     }
 
     static insert<T>(haystack: T[], needle: T): void {
-        const idx = Bisection.search(haystack, x => x < needle);
+        const idx = Bisection.search(haystack, (x) => x < needle);
         if (haystack.at(idx) === needle) return;
         haystack.splice(idx, 0, needle);
     }
 }
 
 export function extractIntegers(x: string): number[] {
-    return (x.match(/[0-9]+/g) ?? []).map(m => parseInt(m, 10));
+    return (x.match(/[0-9]+/g) ?? []).map((m) => parseInt(m, 10));
 }
