@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { splitOn, linesFromFile } from "./core.ts";
 
 export function main(): void {

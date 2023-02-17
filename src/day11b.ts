@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { lcm, linesFromFile, splitOn } from "./core.ts";
 import { monkeyBusiness, parseMonkey, simulate } from "./day11a.ts";
 

@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { readAllSync } from "https://deno.land/std@0.168.0/streams/read_all.ts";
 
 type Valve = { flowRate: number; tunnels: number[] };

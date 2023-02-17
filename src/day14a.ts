@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { linesFromFile, pairwise } from "./core.ts";
 
 // Simulation bounds:

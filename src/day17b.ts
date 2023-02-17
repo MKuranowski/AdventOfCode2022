@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { Cave } from "./day17a.ts";
 
 const MaxRepeatPeriod = 2500;

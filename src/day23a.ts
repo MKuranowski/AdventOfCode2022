@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { enumerate, linesFromFile } from "./core.ts";
 
 export type Coords = [x: number, y: number];

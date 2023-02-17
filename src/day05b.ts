@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { Crate, Move, loadInput, readTops } from "./day05a.ts";
 
 export function performMoves(crates: Crate[], moves: Move[]) {

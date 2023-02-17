@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 export function linesFromFile(path: string): string[] {
     const lines = Deno.readTextFileSync(path).split("\n");
     if (lines.at(-1) === "") lines.pop(); // remove trailing newline

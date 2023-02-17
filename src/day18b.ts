@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { Cube, findFreeFaces, loadInput } from "./day18a.ts";
 
 function encodeCube(x: number, y: number, z: number): number {

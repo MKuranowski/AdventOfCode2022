@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { Calculator, loadInput, Node } from "./day21a.ts";
 
 export class ReversibleCalculator extends Calculator {

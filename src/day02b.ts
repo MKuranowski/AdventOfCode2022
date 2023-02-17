@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { mod } from "./core.ts";
 import { loadPairs } from "./day02a.ts";
 

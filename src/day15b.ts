@@ -1,3 +1,6 @@
+// Copyright (c) 2022-2023 Mikołaj Kuranowski
+// SPDX-License-Identifier: WTFPL
+
 import { dist, Overlap, overlapAtY, overlapsUnion, loadInput } from "./day15a.ts";
 
 export function main(): void {
